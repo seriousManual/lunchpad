@@ -1,4 +1,14 @@
+const store = {}
+
 class Color {
+    static getColor(red, green) {
+        if (!store[red + '_' + green]) {
+            store[red + '_' + green] = new Color(red, green)
+        }
+
+        return store[red + '_' + green]
+    }
+
     constructor(red, green) {
         this._red = this._clamp(red)
         this._green = this._clamp(green)
