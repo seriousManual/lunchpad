@@ -3,12 +3,23 @@ class Color {
         red = this._clip(red)
         green = this._clip(green)
 
-        this._red = Number(red).toString(2)
-        this._green = Number(green).toString(2)
+        this._red = red
+        this._green = green
+    }
+
+    getRed() {
+        return this._red
+    }
+
+    getGreen() {
+        return this._green
     }
 
     getCode() {
-        return parseInt(this._pad(this._green) + '00' + this._pad(this._red), 2)
+        let red = Number(this._red).toString(2)
+        let green = Number(this._green).toString(2)
+
+        return parseInt(this._pad(green) + '00' + this._pad(red), 2)
     }
 
     _pad(val, count = 2) {

@@ -22,19 +22,27 @@ class OutputHandler extends Emitter {
     setSquare (x, y, color) {
         this._squares[x][y] = color
         this._send(144, this._getSquareCoordinate(x, y), color.getCode())
+
+        return this
     }
 
     setFunctionX(x, color) {
         this._inputX[x] = color
         this._send(176, this._getFunctionXCoordinate(x), color.getCode())
+
+        return this
     }
 
     setFunctionY(y, color) {
         this._inputY[y] = color
         this._send(144, this._getFunctionYCoordinate(y), color.getCode())
+
+        return this
     }
 
     _send (order, note, velocity) {
+        console.log([order, note, velocity]);
+        
         this._output.send([order, note, velocity])
     }
 
