@@ -19,7 +19,7 @@ class OutputHandler extends Emitter {
         this._updateBoard(this._generateBlankSquares())
     }
 
-    getSquare(x, y,) {
+    getSquare(x, y) {
         return this._squares[x][y]
     }
 
