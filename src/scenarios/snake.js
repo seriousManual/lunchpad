@@ -10,8 +10,9 @@ const DIR_RIGHT = 'right'
 
 function drawing(handlers) {
     let currentDirection = DIR_DOWN
-    let snake = [{x: 5, y: 4}, {x: 5, y: 5}, {x: 5, y: 6}, {x: 5, y: 7}]
+    let snake = [{x: 5, y: 4, c: Color.getColor(3, 3)}]
     let apple = createApple()
+    let delay = 500
 
     tick()
 
@@ -49,10 +50,15 @@ function drawing(handlers) {
         let shouldShift = true
         //check for apple collision
         if (nextSquare.x === apple.x && nextSquare.y === apple.y) {
-            debug('apple!')
             apple = createApple()
             shouldShift = false
+            delay -= 10
+            delay = Math.max(delay, 150)
+
+            debug('apple!', delay)
         }
+
+        nextSquare.c = Color.getRandomColor()
 
         snake.unshift(nextSquare)
         if (shouldShift) {
@@ -61,26 +67,14 @@ function drawing(handlers) {
 
         print()
 
-        setTimeout(tick, 500)
+        setTimeout(tick, delay)
     }
 
     function print() {
         let blank = generateBlankSquare()
 
         snake.forEach((entry, i) => {
-            let color = Color.getColor(3, 3)
-            if (snake.length === 2) {
-                if (i == 0) {
-                    color = Color.getColor(3, 3)
-                } else {
-                    color = Color.getColor(2, 2)
-                }
-            } else if (snake.length > 2) {
-                let value = parseInt(i / 3) * -1 + 3
-                color = Color.getColor(value, value)
-            }
-
-            blank[entry.x][entry.y] = color
+            blank[entry.x][entry.y] = entry.c
         })
 
         blank[apple.x][apple.y] = Color.getColor(3, 0)

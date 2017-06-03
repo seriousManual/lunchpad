@@ -1,6 +1,10 @@
 const store = {}
 
 class Color {
+    static getRandomColor() {
+        return Color.getColor(parseInt(Math.random() * 4, 10), parseInt(Math.random() * 4, 10))
+    }
+
     static getColor(red, green) {
         if (!store[red + '_' + green]) {
             store[red + '_' + green] = new Color(red, green)
