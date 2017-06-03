@@ -19,6 +19,10 @@ class OutputHandler extends Emitter {
         this._updateBoard(this._generateBlankSquares())
     }
 
+    getSquare(x, y,) {
+        return this._squares[x][y]
+    }
+
     setSquare (x, y, color) {
         this._squares[x][y] = color
         this._send(144, this._getSquareCoordinate(x, y), color.getCode())
@@ -26,11 +30,19 @@ class OutputHandler extends Emitter {
         return this
     }
 
+    getFunctionX(x) {
+        return this._inputX[x]
+    }
+
     setFunctionX(x, color) {
         this._inputX[x] = color
         this._send(176, this._getFunctionXCoordinate(x), color.getCode())
 
         return this
+    }
+
+    getFunctionY(y) {
+        return this._inputY[y]
     }
 
     setFunctionY(y, color) {
@@ -41,8 +53,6 @@ class OutputHandler extends Emitter {
     }
 
     _send (order, note, velocity) {
-        console.log([order, note, velocity]);
-        
         this._output.send([order, note, velocity])
     }
 

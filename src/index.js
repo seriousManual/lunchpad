@@ -1,7 +1,6 @@
 const initialize = require('./lib/initialize')
 const Color = require('./lib/Color')
 
-let grid = []
 let currentColor = new Color(3, 0)
 
 let definitionRed = new Color(3, 0)
@@ -11,19 +10,15 @@ let definitionAmber = new Color(3, 3)
 initialize().then(handlers => {
     handlers.inputHandler
         .on('input', (x, y) => {
-            if (!grid[x]) grid[x] = []
-
             let newColor = currentColor
-            if (grid[x][y] && grid[x][y].getCode() === currentColor.getCode()) {
+            if (handlers.outputHandler.getSquare(x, y).getCode() === newColor.getCode()) {
                 newColor = new Color(0, 0)
             }
-            grid[x][y] = newColor
 
             handlers.outputHandler.setSquare(x, y, newColor)
         })
         .on('functionY', y => {
             if (y == 0) {
-                grid = []
                 handlers.outputHandler.clearSquares()
             }
         })
