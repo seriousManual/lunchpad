@@ -1,10 +1,8 @@
 class Color {
     constructor(red, green) {
-        red = this._clip(red)
-        green = this._clip(green)
-
-        this._red = red
-        this._green = green
+        this._red = this._clamp(red)
+        this._green = this._clamp(green)
+        this._code = this._calcCode(red, green)
     }
 
     getRed() {
@@ -16,8 +14,12 @@ class Color {
     }
 
     getCode() {
-        let red = Number(this._red).toString(2)
-        let green = Number(this._green).toString(2)
+        return this._code
+    }
+
+    _calcCode(red, green) {
+        red = Number(red).toString(2)
+        green = Number(green).toString(2)
 
         return parseInt(this._pad(green) + '00' + this._pad(red), 2)
     }
@@ -30,7 +32,7 @@ class Color {
         return val
     }
 
-    _clip(val) {
+    _clamp(val) {
         return Math.max(0, Math.min(val, 3))
     }
 }
