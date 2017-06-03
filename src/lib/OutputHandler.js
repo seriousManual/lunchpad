@@ -1,6 +1,9 @@
 const Emitter = require('events').EventEmitter
 
+const debug = require('debug')('lp:output')
+
 const Color = require('./Color')
+const generateBlankSquare = require('./generateBlankSquare')
 
 class OutputHandler extends Emitter {
     constructor (output) {
@@ -8,15 +11,15 @@ class OutputHandler extends Emitter {
 
         this._output = output
 
-        this._squares = this._generateBlankSquares()
+        this._squares = generateBlankSquare()
         this._inputX = [new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0)]
         this._inputY = [new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0)]
 
-        this._updateBoard(this._squares, this._inputX, this._inputY, false)
+        this.updateBoard(this._squares, this._inputX, this._inputY, false)
     }
 
     clearSquares() {
-        this._updateBoard(this._generateBlankSquares())
+        this.updateBoard(generateBlankSquare())
     }
 
     getSquare(x, y) {
@@ -53,10 +56,11 @@ class OutputHandler extends Emitter {
     }
 
     _send (order, note, velocity) {
+        debug('sending', [order, note, velocity])
         this._output.send([order, note, velocity])
     }
 
-    _updateBoard (squares, inputX = null, inputY = null, diffUpdate = true) {
+    updateBoard (squares, inputX = null, inputY = null, diffUpdate = true) {
         for (let x = 0; x < squares.length; x++) {
             for (let y = 0; y < squares[x].length; y++) {
                 var color = squares[x][y]
@@ -101,20 +105,6 @@ class OutputHandler extends Emitter {
     _getSquareCoordinate (x, y) {
         return (((y - 7) * -1) * 16) + x
     }
-
-    _generateBlankSquares () {
-        let squares = []
-        for (var x = 0; x < 8; x++) {
-            let row = []
-            for (var y = 0; y < 8; y++) {
-                row.push(new Color(0, 0))
-            }
-            squares.push(row)
-        }
-
-        return squares
-    }
-
 }
 
 module.exports = OutputHandler

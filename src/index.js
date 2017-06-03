@@ -1,7 +1,7 @@
 const initialize = require('./lib/initialize')
 
-const drawing = require('./scenarios/drawing')
+const snake = require('./scenarios/snake')
 
 initialize().then(handlers => {
-    drawing(handlers)
+    snake(handlers)
 }, error => console.log('man....', error))
