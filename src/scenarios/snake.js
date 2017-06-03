@@ -8,13 +8,28 @@ const DIR_DOWN = 'down'
 const DIR_LEFT = 'left'
 const DIR_RIGHT = 'right'
 
-function drawing(handlers) {
-    let currentDirection = DIR_DOWN
-    let snake = [{x: 5, y: 4, c: Color.getColor(3, 3)}]
-    let apple = createApple()
-    let delay = 500
+const STATE_START = 'start'
+const STATE_RUNNING = 'running'
+const STATE_ERROR = 'error'
 
-    tick()
+function drawing(handlers) {
+    let state = STATE_START, currentDirection, snake, apple, delay
+
+    function initiate() {
+        state = STATE_RUNNING
+        currentDirection = DIR_DOWN
+        snake = [Object.assign(_getRandomCoord(), {c: Color.getColor(3, 3)})]
+        apple = createApple()
+        delay = 500
+        tick()
+    }
+
+    function handleError() {
+        state = STATE_ERROR
+
+        handlers.outputHandler.updateBoard(generateBlankSquare(Color.getColor(3, 0)))
+        setTimeout(() => handlers.outputHandler.updateBoard(generateBlankSquare(Color.getColor(0, 0))), 600)
+    }
 
     function tick() {
         let nextSquare = null
@@ -35,16 +50,14 @@ function drawing(handlers) {
 
         //check for wall collision
         if (nextSquare.x < 0 || nextSquare.x > 7 || nextSquare.y < 0 || nextSquare.y > 7) {
-            console.log('bom :(')
+            handleError()
             return
         }
 
         //check for snek collision
-        for (let i = 0; i < snake.length; i++) {
-            if (snake[i].x === nextSquare.x && snake[i].y === nextSquare.y) {
-                console.log('bom :(')
-                return
-            }
+        if (_checkSnakeForCollision(snake, nextSquare)) {
+            handleError()
+            return
         }
 
         let shouldShift = true
@@ -58,7 +71,11 @@ function drawing(handlers) {
             debug('apple!', delay)
         }
 
-        nextSquare.c = Color.getRandomColor()
+        let c = null
+        do {
+            c = Color.getRandomColor()
+        } while(c.getCode() === 0)
+        nextSquare.c = c
 
         snake.unshift(nextSquare)
         if (shouldShift) {
@@ -66,16 +83,13 @@ function drawing(handlers) {
         }
 
         print()
-
         setTimeout(tick, delay)
     }
 
     function print() {
         let blank = generateBlankSquare()
 
-        snake.forEach((entry, i) => {
-            blank[entry.x][entry.y] = entry.c
-        })
+        snake.forEach((entry, i) => blank[entry.x][entry.y] = entry.c)
 
         blank[apple.x][apple.y] = Color.getColor(3, 0)
 
@@ -84,17 +98,17 @@ function drawing(handlers) {
 
     function createApple() {
         let apple = null
-        while (!apple) {
-            apple = {x: parseInt(Math.random() * 8), y: parseInt(Math.random() * 8)}
-        }
+        do {
+            apple = _getRandomCoord()
+        } while (_checkSnakeForCollision(snake, apple))
 
         return apple
     }
 
     handlers.inputHandler
         .on('functionY', y => {
-            console.log(y);
-            
+            if (state === STATE_ERROR || state === STATE_START) return initiate()
+
             if (y == 0 && currentDirection !== DIR_UP) { //down
                 debug('down')
                 currentDirection = DIR_DOWN
@@ -104,6 +118,8 @@ function drawing(handlers) {
             }
         })
         .on('functionX', x => {
+            if (state === STATE_ERROR || state === STATE_START) return initiate()
+
             if (x === 0 && currentDirection !== DIR_RIGHT) { //left
                 debug('left')
                 currentDirection = DIR_LEFT
@@ -118,6 +134,20 @@ function drawing(handlers) {
         .setFunctionY(1, Color.getColor(1, 1))
         .setFunctionX(0, Color.getColor(1, 1))
         .setFunctionX(1, Color.getColor(1, 1))
+}
+
+function _getRandomCoord() {
+    return {x: parseInt(Math.random() * 8), y: parseInt(Math.random() * 8)}
+}
+
+function _checkSnakeForCollision(snake, coord) {
+    for (var i = 0; i < snake.length; i++) {
+        if (snake[i].x === coord.x && snake[i].y === coord.y) {
+            return true
+        }
+    }
+
+    return false
 }
 
 module.exports = drawing

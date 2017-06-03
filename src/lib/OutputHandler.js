@@ -61,17 +61,19 @@ class OutputHandler extends Emitter {
     }
 
     updateBoard (squares, inputX = null, inputY = null, diffUpdate = true) {
-        for (let x = 0; x < squares.length; x++) {
-            for (let y = 0; y < squares[x].length; y++) {
-                var color = squares[x][y]
+        if (squares) {
+            for (let x = 0; x < squares.length; x++) {
+                for (let y = 0; y < squares[x].length; y++) {
+                    var color = squares[x][y]
 
-                if (!diffUpdate || this._squares[x][y].getCode() !== color.getCode()) {
-                    this.setSquare(x, y, color)
+                    if (!diffUpdate || this._squares[x][y].getCode() !== color.getCode()) {
+                        this.setSquare(x, y, color)
+                    }
                 }
             }
-        }
 
-        this._squares = squares;
+            this._squares = squares;
+        }
 
         if (inputX) {
             for (let x = 0; x < inputX.length; x++) {
@@ -92,6 +94,8 @@ class OutputHandler extends Emitter {
 
             this._inputY = inputY
         }
+
+        return this
     }
 
     _getFunctionXCoordinate (x) {
