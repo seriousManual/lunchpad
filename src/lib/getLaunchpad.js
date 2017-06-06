@@ -2,14 +2,14 @@ function getLaunchpad(midiAccess) {
     let lpInput = null
     let lpOutput = null
 
-    for (var input of midiAccess.inputs.values()) {
+    for (let input of midiAccess.inputs.values()) {
         if (input.name === 'Launchpad Mini') {
             lpInput = input
         }
     }
 
-    for (var output of midiAccess.outputs.values()) {
-        if (input.name === 'Launchpad Mini') {
+    for (let output of midiAccess.outputs.values()) {
+        if (output.name === 'Launchpad Mini') {
             lpOutput = output
         }
     }
