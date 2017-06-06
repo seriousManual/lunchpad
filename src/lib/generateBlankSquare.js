@@ -1,10 +1,10 @@
-const Color = require('./Color')
+import Color from './Color'
 
-function generateBlankSquares (color = Color.getColor(0, 0)) {
+export default function generateBlankSquares (color = Color.getColor(0, 0)) {
     let squares = []
-    for (var x = 0; x < 8; x++) {
+    for (let x = 0; x < 8; x++) {
         let row = []
-        for (var y = 0; y < 8; y++) {
+        for (let y = 0; y < 8; y++) {
             row.push(color)
         }
         squares.push(row)
@@ -12,5 +12,3 @@ function generateBlankSquares (color = Color.getColor(0, 0)) {
 
     return squares
 }
-
-module.exports = generateBlankSquares

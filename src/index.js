@@ -1,7 +1,5 @@
-const initialize = require('./lib/initialize')
+import initialize from './lib/initialize'
 
-const snake = require('./scenarios/snake')
+import snake from './scenarios/snake'
 
-initialize().then(handlers => {
-    snake(handlers)
-}, error => console.log('man....', error))
+initialize().then(handlers => snake(handlers), error => console.log('man....', error))

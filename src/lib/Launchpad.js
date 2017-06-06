@@ -1,21 +1,24 @@
-const Emitter = require('events').EventEmitter
+import debug from 'debug'
+import {EventEmitter} from 'events'
 
-const debug = require('debug')('lp:output')
+import Color from './Color'
+import generateBlankSquare from './generateBlankSquare'
 
-const Color = require('./Color')
-const generateBlankSquare = require('./generateBlankSquare')
-
-class OutputHandler extends Emitter {
-    constructor (output) {
+export default class Launchpad extends EventEmitter {
+    constructor(input, output) {
         super()
 
+        this._input = input
         this._output = output
 
+        this._debug = debug('lp:launchpad')
         this._squares = generateBlankSquare()
         this._inputX = [new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0)]
         this._inputY = [new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0)]
 
         this.updateBoard(this._squares, this._inputX, this._inputY, false)
+
+        this._input.onmidimessage = event => this._handleMidiMessage(event)
     }
 
     clearSquares() {
@@ -55,16 +58,11 @@ class OutputHandler extends Emitter {
         return this
     }
 
-    _send (order, note, velocity) {
-        debug('sending', [order, note, velocity])
-        this._output.send([order, note, velocity])
-    }
-
     updateBoard (squares, inputX = null, inputY = null, diffUpdate = true) {
         if (squares) {
             for (let x = 0; x < squares.length; x++) {
                 for (let y = 0; y < squares[x].length; y++) {
-                    var color = squares[x][y]
+                    let color = squares[x][y]
 
                     if (!diffUpdate || this._squares[x][y].getCode() !== color.getCode()) {
                         this.setSquare(x, y, color)
@@ -98,6 +96,30 @@ class OutputHandler extends Emitter {
         return this
     }
 
+    _send (order, note, velocity) {
+        this._debug('sending', [order, note, velocity])
+        this._output.send([order, note, velocity])
+    }
+
+    _handleMidiMessage (event) {
+        if (event.data[2] < 127) {
+            return
+        }
+
+        if (event.data[0] === 176) {
+            this.emit('functionX', event.data[1] - 104)
+        } else {
+            let x = event.data[1] % 16
+            let y = parseInt(event.data[1] / 16) * -1 + 7
+
+            if (x === 8) {
+                this.emit('functionY', y)
+            } else {
+                this.emit('input', x, y)
+            }
+        }
+    }
+
     _getFunctionXCoordinate (x) {
         return x + 104;
     }
@@ -110,5 +132,3 @@ class OutputHandler extends Emitter {
         return (((y - 7) * -1) * 16) + x
     }
 }
-
-module.exports = OutputHandler

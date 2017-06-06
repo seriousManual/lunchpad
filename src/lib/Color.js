@@ -1,6 +1,6 @@
 const store = {}
 
-class Color {
+export default class Color {
     static getRandomColor() {
         return Color.getColor(parseInt(Math.random() * 4, 10), parseInt(Math.random() * 4, 10))
     }
@@ -50,5 +50,3 @@ class Color {
         return Math.max(0, Math.min(val, 3))
     }
 }
-
-module.exports = Color

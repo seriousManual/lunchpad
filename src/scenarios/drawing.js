@@ -1,24 +1,24 @@
-const Color = require('../lib/Color')
+import Color from '../lib/Color'
 
-function drawing(handlers) {
+export default function drawing(launchpad) {
     let currentColor = Color.getColor(3, 0)
 
     let definitionRed = Color.getColor(3, 0)
     let definitionGreen = Color.getColor(0, 3)
     let definitionAmber = Color.getColor(3, 3)
 
-    handlers.inputHandler
+    launchpad
         .on('input', (x, y) => {
             let newColor = currentColor
-            if (handlers.outputHandler.getSquare(x, y).getCode() === newColor.getCode()) {
+            if (launchpad.getSquare(x, y).getCode() === newColor.getCode()) {
                 newColor = Color.getColor(0, 0)
             }
 
-            handlers.outputHandler.setSquare(x, y, newColor)
+            launchpad.setSquare(x, y, newColor)
         })
         .on('functionY', y => {
-            if (y == 0) {
-                handlers.outputHandler.clearSquares()
+            if (y === 0) {
+                launchpad.clearSquares()
             }
         })
         .on('functionX', x => {
@@ -33,15 +33,13 @@ function drawing(handlers) {
                 definitionAmber = currentColor
             }
 
-            handlers.outputHandler.setFunctionX(7, currentColor)
+            launchpad.setFunctionX(7, currentColor)
         })
 
-    handlers.outputHandler
+    launchpad
         .setFunctionY(0, Color.getColor(3, 0))
         .setFunctionX(0, Color.getColor(3, 0))
         .setFunctionX(1, Color.getColor(0, 3))
         .setFunctionX(2, Color.getColor(3, 3))
         .setFunctionX(7, currentColor)
 }
-
-module.exports = drawing

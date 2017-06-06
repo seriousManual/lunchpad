@@ -1,4 +1,4 @@
-function getLaunchpad(midiAccess) {
+export default function getLaunchpad(midiAccess) {
     let lpInput = null
     let lpOutput = null
 
@@ -23,5 +23,3 @@ function getLaunchpad(midiAccess) {
         output: lpOutput
     }
 }
-
-module.exports = getLaunchpad

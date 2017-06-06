@@ -1,10 +1,7 @@
-const InputHandler = require('./InputHandler')
-const OutputHandler = require('./OutputHandler')
-const getLaunchpad = require('./getLaunchpad')
+import Launchpad from './Launchpad'
+import getLaunchpad from './getLaunchpad'
 
-const Color = require('./Color')
-
-function initialize() {
+export default function initialize() {
     return new Promise((resolve, reject) => {
         navigator.requestMIDIAccess().then(function onMIDISuccess (midiAccess) {
             try {
@@ -13,12 +10,7 @@ function initialize() {
                 return reject(error)
             }
 
-            let inputHandler = new InputHandler(handlers.input)
-            let outputHandler = new OutputHandler(handlers.output)
-
-            resolve({inputHandler, outputHandler})
+            resolve(new Launchpad(handlers.input, handlers.output))
         }, reject)
     })
 }
-
-module.exports = initialize

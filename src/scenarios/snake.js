@@ -1,7 +1,7 @@
-const debug = require('debug')('lp:snake')
+import debug from 'debug'
 
-const Color = require('../lib/Color')
-const generateBlankSquare = require('../lib/generateBlankSquare')
+import Color from '../lib/Color'
+import generateBlankSquare from '../lib/generateBlankSquare'
 
 const DIR_UP = 'up'
 const DIR_DOWN = 'down'
@@ -12,8 +12,9 @@ const STATE_START = 'start'
 const STATE_RUNNING = 'running'
 const STATE_ERROR = 'error'
 
-function drawing(handlers) {
+export default function drawing(launchpad) {
     let state = STATE_START, currentDirection, snake, apple, delay
+    let _debug = debug('lp:snake')
 
     function initiate() {
         state = STATE_RUNNING
@@ -27,8 +28,8 @@ function drawing(handlers) {
     function handleError() {
         state = STATE_ERROR
 
-        handlers.outputHandler.updateBoard(generateBlankSquare(Color.getColor(3, 0)))
-        setTimeout(() => handlers.outputHandler.updateBoard(generateBlankSquare(Color.getColor(0, 0))), 600)
+        launchpad.updateBoard(generateBlankSquare(Color.getColor(3, 0)))
+        setTimeout(() => launchpad.updateBoard(generateBlankSquare(Color.getColor(0, 0))), 600)
     }
 
     function tick() {
@@ -68,7 +69,7 @@ function drawing(handlers) {
             delay -= 10
             delay = Math.max(delay, 150)
 
-            debug('apple!', delay)
+            _debug('apple!', delay)
         }
 
         let c = null
@@ -93,7 +94,7 @@ function drawing(handlers) {
 
         blank[apple.x][apple.y] = Color.getColor(3, 0)
 
-        handlers.outputHandler.updateBoard(blank)
+        launchpad.updateBoard(blank)
     }
 
     function createApple() {
@@ -105,15 +106,15 @@ function drawing(handlers) {
         return apple
     }
 
-    handlers.inputHandler
+    launchpad
         .on('functionY', y => {
             if (state === STATE_ERROR || state === STATE_START) return initiate()
 
-            if (y == 0 && currentDirection !== DIR_UP) { //down
-                debug('down')
+            if (y === 0 && currentDirection !== DIR_UP) { //down
+                _debug('down')
                 currentDirection = DIR_DOWN
-            } else if (y == 1 && currentDirection !== DIR_DOWN) {//up
-                debug('up')
+            } else if (y === 1 && currentDirection !== DIR_DOWN) {//up
+                _debug('up')
                 currentDirection = DIR_UP
             }
         })
@@ -121,15 +122,15 @@ function drawing(handlers) {
             if (state === STATE_ERROR || state === STATE_START) return initiate()
 
             if (x === 0 && currentDirection !== DIR_RIGHT) { //left
-                debug('left')
+                _debug('left')
                 currentDirection = DIR_LEFT
             } else if (x === 1 && currentDirection !== DIR_LEFT) { //right
-                debug('right')
+                _debug('right')
                 currentDirection = DIR_RIGHT
             }
         })
 
-    handlers.outputHandler
+    launchpad
         .setFunctionY(0, Color.getColor(1, 1))
         .setFunctionY(1, Color.getColor(1, 1))
         .setFunctionX(0, Color.getColor(1, 1))
@@ -141,7 +142,7 @@ function _getRandomCoord() {
 }
 
 function _checkSnakeForCollision(snake, coord) {
-    for (var i = 0; i < snake.length; i++) {
+    for (let i = 0; i < snake.length; i++) {
         if (snake[i].x === coord.x && snake[i].y === coord.y) {
             return true
         }
@@ -149,5 +150,3 @@ function _checkSnakeForCollision(snake, coord) {
 
     return false
 }
-
-module.exports = drawing
