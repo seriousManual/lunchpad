@@ -71,8 +71,6 @@ export default class Launchpad extends EventEmitter {
                     }
                 }
             }
-
-            this._squares = squares;
         }
 
         if (inputX) {
@@ -85,8 +83,6 @@ export default class Launchpad extends EventEmitter {
                     this.setFunctionX(x, color)
                 }
             }
-
-            this._inputX = inputX
         }
 
         if (inputY) {
@@ -99,8 +95,6 @@ export default class Launchpad extends EventEmitter {
                     this.setFunctionY(y, color)
                 }
             }
-
-            this._inputY = inputY
         }
 
         return this
