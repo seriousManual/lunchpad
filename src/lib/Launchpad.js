@@ -12,17 +12,17 @@ export default class Launchpad extends EventEmitter {
         this._output = output
 
         this._debug = debug('lp:launchpad')
-        this._squares = generateBlankSquare()
-        this._inputX = [new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0)]
-        this._inputY = [new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0), new Color(0, 0)]
+        this._squares = generateBlankSquare(Color.BLACK)
+        this._inputX = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
+        this._inputY = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
 
-        this.updateBoard(this._squares, this._inputX, this._inputY, false)
+        this.updateBoard(this._squares, this._inputX, this._inputY)
 
         this._input.onmidimessage = event => this._handleMidiMessage(event)
     }
 
     clearSquares() {
-        this.updateBoard(generateBlankSquare())
+        this.updateBoard(generateBlankSquare(Color.BLACK))
     }
 
     getSquare(x, y) {
@@ -58,13 +58,15 @@ export default class Launchpad extends EventEmitter {
         return this
     }
 
-    updateBoard (squares, inputX = null, inputY = null, diffUpdate = true) {
+    updateBoard (squares, inputX = null, inputY = null) {
         if (squares) {
             for (let x = 0; x < squares.length; x++) {
                 for (let y = 0; y < squares[x].length; y++) {
                     let color = squares[x][y]
 
-                    if (!diffUpdate || this._squares[x][y].getCode() !== color.getCode()) {
+                    if (!color) continue
+
+                    if (this._squares[x][y].getCode() !== color.getCode()) {
                         this.setSquare(x, y, color)
                     }
                 }
@@ -75,8 +77,12 @@ export default class Launchpad extends EventEmitter {
 
         if (inputX) {
             for (let x = 0; x < inputX.length; x++) {
-                if (!diffUpdate || this._inputX[x].getCode() !== inputX[x].getCode()) {
-                    this.setFunctionX(x, inputX[x])
+                let color = inputX[x]
+
+                if (!color) continue
+
+                if (this._inputX[x].getCode() !== color.getCode()) {
+                    this.setFunctionX(x, color)
                 }
             }
 
@@ -85,8 +91,12 @@ export default class Launchpad extends EventEmitter {
 
         if (inputY) {
             for (let y = 0; y < inputY.length; y++) {
-                if (!diffUpdate || this._inputY[y].getCode() !== inputY[y].getCode()) {
-                    this.setFunctionY(y, inputY[y])
+                let color = inputY[y]
+
+                if (!color) continue
+
+                if (this._inputY[y].getCode() !== color.getCode()) {
+                    this.setFunctionY(y, color)
                 }
             }
 

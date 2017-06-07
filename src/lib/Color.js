@@ -19,6 +19,14 @@ export default class Color {
         this._code = this._calcCode(red, green)
     }
 
+    lighter() {
+        return Color.getColor(this._clamp(this.getRed() + 1), this._clamp(this.getGreen() + 1))
+    }
+
+    darker() {
+        return Color.getColor(this._clamp(this.getRed() + 1), this._clamp(this.getGreen() + 1))
+    }
+
     getRed() {
         return this._red
     }
@@ -50,3 +58,8 @@ export default class Color {
         return Math.max(0, Math.min(val, 3))
     }
 }
+
+Color.BLACK = Color.getColor(0, 0)
+Color.RED = Color.getColor(3, 0)
+Color.GREEN = Color.getColor(0, 3)
+Color.AMBER = Color.getColor(3, 3)

@@ -11,7 +11,7 @@ export default function floodfill(launchpad) {
 
         function print() {
             if (gens.length === 0) {
-                launchpad.updateBoard(generateBlankSquare())
+                launchpad.updateBoard(generateBlankSquare(Color.BLACK))
                 return
             }
 

@@ -1,17 +1,17 @@
 import Color from '../lib/Color'
 
 export default function drawing(launchpad) {
-    let currentColor = Color.getColor(3, 0)
+    let currentColor = Color.RED
 
-    let definitionRed = Color.getColor(3, 0)
-    let definitionGreen = Color.getColor(0, 3)
-    let definitionAmber = Color.getColor(3, 3)
+    let definitionRed = Color.RED
+    let definitionGreen = Color.GREEN
+    let definitionAmber = Color.AMBER
 
     launchpad
         .on('input', (x, y) => {
             let newColor = currentColor
             if (launchpad.getSquare(x, y).getCode() === newColor.getCode()) {
-                newColor = Color.getColor(0, 0)
+                newColor = Color.BLACK
             }
 
             launchpad.setSquare(x, y, newColor)
@@ -37,9 +37,9 @@ export default function drawing(launchpad) {
         })
 
     launchpad
-        .setFunctionY(0, Color.getColor(3, 0))
-        .setFunctionX(0, Color.getColor(3, 0))
-        .setFunctionX(1, Color.getColor(0, 3))
-        .setFunctionX(2, Color.getColor(3, 3))
+        .setFunctionY(0, Color.RED)
+        .setFunctionX(0, Color.RED)
+        .setFunctionX(1, Color.GREEN)
+        .setFunctionX(2, Color.AMBER)
         .setFunctionX(7, currentColor)
 }

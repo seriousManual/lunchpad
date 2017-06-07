@@ -19,7 +19,7 @@ export default function drawing(launchpad) {
     function initiate() {
         state = STATE_RUNNING
         currentDirection = DIR_DOWN
-        snake = [Object.assign(_getRandomCoord(), {c: Color.getColor(3, 3)})]
+        snake = [Object.assign(_getRandomCoord(), {c: Color.AMBER})]
         apple = createApple()
         delay = 500
         tick()
@@ -28,8 +28,8 @@ export default function drawing(launchpad) {
     function handleError() {
         state = STATE_ERROR
 
-        launchpad.updateBoard(generateBlankSquare(Color.getColor(3, 0)))
-        setTimeout(() => launchpad.updateBoard(generateBlankSquare(Color.getColor(0, 0))), 600)
+        launchpad.updateBoard(generateBlankSquare(Color.RED))
+        setTimeout(() => launchpad.updateBoard(generateBlankSquare(Color.BLACK)), 600)
     }
 
     function tick() {
@@ -88,11 +88,11 @@ export default function drawing(launchpad) {
     }
 
     function print() {
-        let blank = generateBlankSquare()
+        let blank = generateBlankSquare(Color.BLACK)
 
         snake.forEach((entry, i) => blank[entry.x][entry.y] = entry.c)
 
-        blank[apple.x][apple.y] = Color.getColor(3, 0)
+        blank[apple.x][apple.y] = Color.RED
 
         launchpad.updateBoard(blank)
     }
