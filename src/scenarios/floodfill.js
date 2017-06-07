@@ -16,7 +16,7 @@ export default function floodfill(launchpad) {
             }
 
             let gen = gens.shift()
-            let blank = generateBlankSquare()
+            let blank = generateBlankSquare(Color.BLACK)
 
             gen.forEach(entry => {
                 blank[entry.x][entry.y] = color

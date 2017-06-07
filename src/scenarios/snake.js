@@ -29,7 +29,9 @@ export default function drawing(launchpad) {
         state = STATE_ERROR
 
         launchpad.updateBoard(generateBlankSquare(Color.RED))
-        setTimeout(() => launchpad.updateBoard(generateBlankSquare(Color.BLACK)), 600)
+        setTimeout(() => launchpad.updateBoard(generateBlankSquare(Color.BLACK)), 400)
+        setTimeout(() => launchpad.updateBoard(generateBlankSquare(Color.RED)), 800)
+        setTimeout(() => launchpad.updateBoard(generateBlankSquare(Color.BLACK)), 1200)
     }
 
     function tick() {
