@@ -39,6 +39,13 @@ export default class Color {
         return this._code
     }
 
+    getRgb() {
+        let r = parseInt((255 / 3) * this.getRed())
+        let g = parseInt((255 / 3) * this.getGreen())
+
+        return '#' + this._pad(r.toString(16)) + this._pad(g.toString(16)) + '00'
+    }
+
     _calcCode(red, green) {
         red = Number(red).toString(2)
         green = Number(green).toString(2)

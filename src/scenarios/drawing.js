@@ -31,6 +31,8 @@ export default function drawing(launchpad) {
             } else if (x === 2) {
                 currentColor = Color.getColor((definitionAmber.getRed() + 1) % 3 + 1, (definitionAmber.getGreen() + 1) % 3 + 1)
                 definitionAmber = currentColor
+            } else {
+                return
             }
 
             launchpad.setFunctionX(7, currentColor)

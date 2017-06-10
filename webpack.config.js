@@ -9,19 +9,20 @@ module.exports = [
     {
         devtool: 'cheap-module-source-map',
         entry: [
-            './src/index.js'
+            './src/app.js'
         ],
         output: {
             path: path.join(__dirname, 'build'),
-            filename: 'index.js'
+            filename: 'app.js'
         },
         module: {
             loaders: [
                 {
-                    test: /\.js$/,
+                    test: /\.jsx?$/,
                     loader: 'babel-loader',
                     query: {
                         presets: [
+                            ["react"],
                             ["es2015", { "modules": false }]
                         ],
                         cacheDirectory: true
@@ -30,6 +31,8 @@ module.exports = [
             ]
         },
 
-        plugins: []
+        plugins: [
+            //new webpack.optimize.UglifyJsPlugin()
+        ]
     }
 ]
