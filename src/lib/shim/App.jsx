@@ -22,7 +22,7 @@ export default class App extends React.Component {
             }
 
             row.push(<FunctionButton key={y}
-                                     color={baseData.inputY[y]}
+                                     color={baseData.inputY[(y * -1) + 7]}
                                      onSelect= {_ => selectFunctionY(y)}
             />)
 

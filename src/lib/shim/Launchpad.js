@@ -25,7 +25,7 @@ export default class Launchpad extends LaunchpadBase {
     }
 
     _render() {
-        console.log('brot');
+        console.log('render');
         
         ReactDOM.render(<App baseData={this._baseData}
                              selectSquare={(x, y) => this._selectSquare(x, y)}
