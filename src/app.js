@@ -1,4 +1,4 @@
-import {initializeShim} from './index'
+import {initializeShim, initialize} from './index'
 
 import drawing from './scenarios/drawing'
 import ff from './scenarios/floodfill'

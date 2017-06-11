@@ -13,7 +13,7 @@ export default class Launchpad extends LaunchpadBase {
         super()
 
         this._debug = debug('lp:launchpadShim')
-        this._root = document.getElementById(rootId)
+        this._rootNode = document.getElementById(rootId)
 
         this._baseData = {
             squares: this._squares,
@@ -25,24 +25,22 @@ export default class Launchpad extends LaunchpadBase {
     }
 
     _render() {
-        console.log('render');
+        this._debug('render')
         
         ReactDOM.render(<App baseData={this._baseData}
                              selectSquare={(x, y) => this._selectSquare(x, y)}
                              selectFunctionX={x => this._selectFunctionX(x)}
                              selectFunctionY={y => this._selectFunctionY(y)}
-        />, this._root);
+        />, this._rootNode);
     }
 
-    _setSquare(x, y, color) {
-        this._render()
-    }
+    _setSquare(x, y, color) {}
 
-    _setFunctionX(x, color) {
-        this._render()
-    }
+    _setFunctionX(x, color) {}
 
-    _setFunctionY(y, color) {
+    _setFunctionY(y, color) {}
+
+    _flush() {
         this._render()
     }
 }

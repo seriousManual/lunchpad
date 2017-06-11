@@ -13,7 +13,7 @@ export default class LaunchpadBase extends EventEmitter {
         this._inputX = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
         this._inputY = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
 
-        this.updateBoard(this._squares, this._inputX, this._inputY)
+        //this.updateBoard(this._squares, this._inputX, this._inputY)
     }
 
     clearSquares() {
@@ -24,9 +24,13 @@ export default class LaunchpadBase extends EventEmitter {
         return this._squares[x][y]
     }
 
-    setSquare (x, y, color) {
+    setSquare (x, y, color, shouldFlush = true) {
         this._squares[x][y] = color
         this._setSquare(x, y, color)
+
+        if (shouldFlush) {
+            this._flush()
+        }
 
         return this
     }
@@ -35,16 +39,28 @@ export default class LaunchpadBase extends EventEmitter {
         return this._inputX[x]
     }
 
-    setFunctionX(x, color) {
+    setFunctionX(x, color, shouldFlush = true) {
         this._inputX[x] = color
         this._setFunctionX(x, color)
+
+        if (shouldFlush) {
+            this._flush()
+        }
 
         return this
     }
 
-    setFunctionY(y, color) {
+    getFunctionY(y) {
+        return this._inputX[y]
+    }
+
+    setFunctionY(y, color, shouldFlush = true) {
         this._inputY[y] = color
         this._setFunctionY(y, color)
+
+        if (shouldFlush) {
+            this._flush()
+        }
 
         return this
     }
@@ -70,7 +86,7 @@ export default class LaunchpadBase extends EventEmitter {
                     if (!color) continue
 
                     if (this._squares[x][y].getCode() !== color.getCode()) {
-                        this.setSquare(x, y, color)
+                        this.setSquare(x, y, color, false)
                     }
                 }
             }
@@ -83,7 +99,7 @@ export default class LaunchpadBase extends EventEmitter {
                 if (!color) continue
 
                 if (this._inputX[x].getCode() !== color.getCode()) {
-                    this.setFunctionX(x, color)
+                    this.setFunctionX(x, color, false)
                 }
             }
         }
@@ -95,10 +111,12 @@ export default class LaunchpadBase extends EventEmitter {
                 if (!color) continue
 
                 if (this._inputY[y].getCode() !== color.getCode()) {
-                    this.setFunctionY(y, color)
+                    this.setFunctionY(y, color, false)
                 }
             }
         }
+
+        this._flush()
 
         return this
     }

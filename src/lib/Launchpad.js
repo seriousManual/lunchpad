@@ -63,4 +63,8 @@ export default class Launchpad extends LaunchpadBase {
     _getSquareCoordinate (x, y) {
         return (((y - 7) * -1) * 16) + x
     }
+
+    _flush() {
+
+    }
 }
