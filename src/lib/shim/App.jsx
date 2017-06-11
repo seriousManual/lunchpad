@@ -12,7 +12,7 @@ export default class App extends React.Component {
         )
 
         let rows = []
-        for (let y = 0; y < 8; y++) {
+        for (let y = 7; y >= 0; y--) {
             let row = []
             for (let x = 0; x < 8; x++) {
                 row.push(<Square key={x + '_' + y}
@@ -22,7 +22,7 @@ export default class App extends React.Component {
             }
 
             row.push(<FunctionButton key={y}
-                                     color={baseData.inputY[(y * -1) + 7]}
+                                     color={baseData.inputY[y]}
                                      onSelect= {_ => selectFunctionY(y)}
             />)
 
