@@ -6,7 +6,7 @@ export default class App extends React.Component {
     render() {
         let {baseData, selectFunctionX, selectFunctionY, selectSquare} = this.props
 
-        let inputX = baseData.inputX.map((color, x) =>
+        let functionX = baseData.functionX.map((color, x) =>
             <Button color={color} key={x} round={true} onSelect={_ => selectFunctionX(x)}/>
         )
 
@@ -22,7 +22,7 @@ export default class App extends React.Component {
 
             row.push(<Button key={y}
                              round={true}
-                             color={baseData.inputY[y]}
+                             color={baseData.functionY[y]}
                              onSelect={_ => selectFunctionY(y)}
             />)
 
@@ -31,7 +31,7 @@ export default class App extends React.Component {
 
         return (
             <div>
-                <div className="clearfix">{inputX}</div>
+                <div className="clearfix">{functionX}</div>
                 {rows}
             </div>
         );

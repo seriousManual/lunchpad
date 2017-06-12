@@ -11,4 +11,4 @@ import snake from './scenarios/snake'
 //     snake(new Bridge(launchpads[0], launchpads[1]))
 // })
 
-initializeShim('launchpadShim').then(snake)
+initializeShim('launchpadShim').then(drawing)

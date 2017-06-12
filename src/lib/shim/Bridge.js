@@ -1,4 +1,3 @@
-import debug from 'debug'
 import {EventEmitter} from 'events'
 
 export default class Bridge extends EventEmitter {
@@ -57,9 +56,9 @@ export default class Bridge extends EventEmitter {
         return this
     }
 
-    updateBoard (squares, inputX = null, inputY = null) {
-        this._lp1.updateBoard(squares, inputX, inputY)
-        this._lp2.updateBoard(squares, inputX, inputY)
+    updateBoard (squares, functionX = null, functionY = null) {
+        this._lp1.updateBoard(squares, functionX, functionY)
+        this._lp2.updateBoard(squares, functionX, functionY)
 
         return this
     }

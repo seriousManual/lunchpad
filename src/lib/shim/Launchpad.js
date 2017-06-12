@@ -17,8 +17,8 @@ export default class Launchpad extends LaunchpadBase {
 
         this._baseData = {
             squares: this._squares,
-            inputX: this._inputX,
-            inputY: this._inputY
+            functionX: this._functionX,
+            functionY: this._functionY
         }
         
         this._render()

@@ -10,10 +10,8 @@ export default class LaunchpadBase extends EventEmitter {
 
         this._debug = debug('lp:launchpad')
         this._squares = generateBlankSquare(Color.BLACK)
-        this._inputX = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
-        this._inputY = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
-
-        //this.updateBoard(this._squares, this._inputX, this._inputY)
+        this._functionX = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
+        this._functionY = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
     }
 
     clearSquares() {
@@ -36,11 +34,11 @@ export default class LaunchpadBase extends EventEmitter {
     }
 
     getFunctionX(x) {
-        return this._inputX[x]
+        return this._functionX[x]
     }
 
     setFunctionX(x, color, shouldFlush = true) {
-        this._inputX[x] = color
+        this._functionX[x] = color
         this._setFunctionX(x, color)
 
         if (shouldFlush) {
@@ -51,11 +49,11 @@ export default class LaunchpadBase extends EventEmitter {
     }
 
     getFunctionY(y) {
-        return this._inputX[y]
+        return this._functionX[y]
     }
 
     setFunctionY(y, color, shouldFlush = true) {
-        this._inputY[y] = color
+        this._functionY[y] = color
         this._setFunctionY(y, color)
 
         if (shouldFlush) {
@@ -77,7 +75,7 @@ export default class LaunchpadBase extends EventEmitter {
         this.emit('functionY', y)
     }
 
-    updateBoard (squares, inputX = null, inputY = null) {
+    updateBoard (squares, functionX = null, functionY = null) {
         if (squares) {
             for (let x = 0; x < squares.length; x++) {
                 for (let y = 0; y < squares[x].length; y++) {
@@ -92,25 +90,25 @@ export default class LaunchpadBase extends EventEmitter {
             }
         }
 
-        if (inputX) {
-            for (let x = 0; x < inputX.length; x++) {
-                let color = inputX[x]
+        if (functionX) {
+            for (let x = 0; x < functionX.length; x++) {
+                let color = functionX[x]
 
                 if (!color) continue
 
-                if (this._inputX[x].getCode() !== color.getCode()) {
+                if (this._functionX[x].getCode() !== color.getCode()) {
                     this.setFunctionX(x, color, false)
                 }
             }
         }
 
-        if (inputY) {
-            for (let y = 0; y < inputY.length; y++) {
-                let color = inputY[y]
+        if (functionY) {
+            for (let y = 0; y < functionY.length; y++) {
+                let color = functionY[y]
 
                 if (!color) continue
 
-                if (this._inputY[y].getCode() !== color.getCode()) {
+                if (this._functionY[y].getCode() !== color.getCode()) {
                     this.setFunctionY(y, color, false)
                 }
             }
