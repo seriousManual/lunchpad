@@ -2,19 +2,23 @@ import React from 'react'
 
 import Color from '../Color'
 
-export default class FunctionButton extends React.Component {
+export default class Square extends React.Component {
     render () {
-        let {color, onSelect} = this.props
+        let {color, onSelect, round} = this.props
 
-        let size = 30
+        let size = 40
         let style = {
+            boxSizing: 'border-box',
             backgroundColor: color.getRgb(),
             width: size + 'px',
             height: size + 'px',
             float: 'left',
-            borderRadius: (size / 2) + 'px',
-            margin: '10px',
+            margin: '5px',
             border: '3px solid #666'
+        }
+
+        if (round) {
+            style.borderRadius = (size / 2) + 'px'
         }
 
         return <div style={style} onClick={onSelect}></div>;
