@@ -15,7 +15,7 @@ export default function getLaunchpad(midiAccess) {
     }
 
     if (!lpInput || !lpOutput) {
-        throw new Error('no laucnhpad found')
+        throw new Error('no launchpad found')
     }
 
     return {
