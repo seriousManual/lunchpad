@@ -12,7 +12,7 @@ const STATE_START = 'start'
 const STATE_RUNNING = 'running'
 const STATE_ERROR = 'error'
 
-export default function drawing(launchpad) {
+export default function snake(launchpad) {
     let state = STATE_START, currentDirection, snake, apple, delay
     let _debug = debug('lp:snake')
 

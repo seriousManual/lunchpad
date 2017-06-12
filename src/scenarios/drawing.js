@@ -37,8 +37,6 @@ export default function drawing(launchpad) {
 
             launchpad.setFunctionX(7, currentColor)
         })
-
-    launchpad
         .setFunctionY(0, Color.RED)
         .setFunctionX(0, Color.RED)
         .setFunctionX(1, Color.GREEN)
