@@ -1,5 +1,5 @@
 import Color from '../lib/Color'
-import ff from '../lib/floodfill'
+import ff from './lib/floodfill'
 import generateBlankSquare from '../lib/generateBlankSquare'
 
 export default function floodfill(launchpad) {
