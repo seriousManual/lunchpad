@@ -1,8 +1,7 @@
 'use strict'
 
-var path = require('path')
-
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = [
     {
@@ -20,12 +19,12 @@ module.exports = [
                     test: /\.jsx?$/,
                     loader: 'babel-loader',
                     exclude: [
-                        path.resolve(__dirname, "node_modules")
+                        path.resolve(__dirname, 'node_modules')
                     ],
                     query: {
                         presets: [
-                            ["react"],
-                            ["es2015", { "modules": false }]
+                            ['react'],
+                            // ['es2015', { 'modules': false }]
                         ],
                         cacheDirectory: true
                     }
