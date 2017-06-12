@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Color from '../Color'
-
 export default class Square extends React.Component {
     render () {
         let {color, onSelect, round} = this.props
@@ -14,7 +12,8 @@ export default class Square extends React.Component {
             height: size + 'px',
             float: 'left',
             margin: '5px',
-            border: '3px solid #666'
+            border: '3px solid #666',
+            transition: 'background-color 100ms linear'
         }
 
         if (round) {
