@@ -1,5 +1,3 @@
-import Color from './Color'
-
 export default function generateBlankSquares (color = null) {
     let squares = []
     for (let x = 0; x < 8; x++) {

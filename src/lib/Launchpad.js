@@ -1,8 +1,5 @@
 import debug from 'debug'
 
-import Color from './Color'
-import generateBlankSquare from './generateBlankSquare'
-
 import LaunchpadBase from './LaunchpadBase.js'
 
 export default class Launchpad extends LaunchpadBase {

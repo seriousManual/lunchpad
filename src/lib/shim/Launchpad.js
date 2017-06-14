@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import debug from 'debug'
 import {EventEmitter} from 'events'
 
-import Color from '../Color'
 import LaunchpadBase from '../LaunchpadBase'
 
 import App from './App.jsx'
