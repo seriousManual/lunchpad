@@ -7,7 +7,7 @@ export default function floodfill(launchpad) {
 
     function start(x, y) {
         let gens = ff({x: x, y: y})
-        let color = Color.getColor(parseInt(Math.random() * 3), parseInt(Math.random() * 3))
+        let color = Color.getRandomColor()
 
         function print() {
             if (gens.length === 0) {
