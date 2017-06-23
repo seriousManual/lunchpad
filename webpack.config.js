@@ -1,15 +1,27 @@
 'use strict'
 
 const path = require('path')
-const webpack = require('webpack')
 
-const baseConfig = {
+module.exports = {
+    devtool: 'cheap-module-source-map',
     entry: [
-        './src/app.js'
+        './src/indexBrowser.js'
     ],
     output: {
-        path: path.join(__dirname, 'build'),
-        filename: 'app.js'
+        path: path.join(__dirname, 'dist/browser'),
+        filename: 'indexBrowser.js'
+    },
+    externals: {
+        react: {
+            commonjs: "react",
+            amd: "react",
+            root: "react"
+        },
+        "react-dom": {
+            commonjs: "react-dom",
+            amd: "react-dom",
+            root: "react-dom"
+        }
     },
     module: {
         loaders: [
@@ -21,7 +33,8 @@ const baseConfig = {
                 ],
                 query: {
                     presets: [
-                        ['react']
+                        ['react'],
+                        ['es2015']
                     ],
                     cacheDirectory: true
                 }
@@ -29,21 +42,3 @@ const baseConfig = {
         ]
     }
 }
-
-
-if (process.env.NODE_ENV === 'production') {
-    baseConfig.plugins = [
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
-        })
-    ]
-
-    baseConfig.module.loaders[0].query.presets.push(['es2015', {'modules': false}])
-} else {
-    baseConfig.devtool = 'cheap-module-source-map'
-}
-
-module.exports = baseConfig

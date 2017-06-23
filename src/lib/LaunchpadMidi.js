@@ -1,8 +1,8 @@
 import debug from 'debug'
 
-import LaunchpadBase from './LaunchpadBase.js'
+import LaunchpadBase from './LaunchpadBase'
 
-export default class Launchpad extends LaunchpadBase {
+export default class LaunchpadMidi extends LaunchpadBase {
     constructor(input, output) {
         super()
 
@@ -26,20 +26,21 @@ export default class Launchpad extends LaunchpadBase {
     }
 
     _send (order, note, velocity) {
-        this._debug('sending', [order, note, velocity])
-        this._output.send([order, note, velocity])
+        throw Error('missing _send implementation')
     }
 
-    _handleMidiMessage (event) {
-        if (event.data[2] < 127) {
+    _handleMidiMessage (message) {
+        this._debug('handling message', message)
+
+        if (message[2] < 127) {
             return
         }
 
-        if (event.data[0] === 176) {
-            this._selectFunctionX(event.data[1] - 104)
+        if (message[0] === 176) {
+            this._selectFunctionX(message[1] - 104)
         } else {
-            let x = event.data[1] % 16
-            let y = parseInt(event.data[1] / 16) * -1 + 7
+            let x = message[1] % 16
+            let y = parseInt(message[1] / 16) * -1 + 7
 
             if (x === 8) {
                 this._selectFunctionY(y)

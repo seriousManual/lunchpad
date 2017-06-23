@@ -1,3 +1,4 @@
-build
+local.js
+dist
 node_modules
 .idea

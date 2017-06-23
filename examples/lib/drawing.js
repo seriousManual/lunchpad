@@ -1,6 +1,6 @@
-import Color from '../lib/Color'
+const Color = require('../../dist/node/indexServer').Color
 
-export default function drawing(launchpad) {
+function drawing(launchpad) {
     let currentColor = Color.RED
 
     let definitionRed = Color.RED
@@ -43,3 +43,5 @@ export default function drawing(launchpad) {
         .setFunctionX(2, Color.AMBER)
         .setFunctionX(7, currentColor)
 }
+
+module.exports = drawing

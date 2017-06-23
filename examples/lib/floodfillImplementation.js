@@ -38,10 +38,10 @@ function getNeigbours(coord) {
         {x: coord.x, y: coord.y + 1},
         {x: coord.x, y: coord.y - 1},
 
-        //{x: coord.x - 1, y: coord.y - 1},
-        //{x: coord.x + 1, y: coord.y + 1},
-        //{x: coord.x - 1, y: coord.y + 1},
-        //{x: coord.x + 1, y: coord.y - 1}
+        {x: coord.x - 1, y: coord.y - 1},
+        {x: coord.x + 1, y: coord.y + 1},
+        {x: coord.x - 1, y: coord.y + 1},
+        {x: coord.x + 1, y: coord.y - 1}
     ]
 }
 

@@ -1,30 +1,30 @@
 import Color from '../lib/Color'
-import ff from './lib/floodfill'
+import ff from './floodfillImplementation.js'
 import generateBlankSquare from '../lib/generateBlankSquare'
 
 export default function floodfill(launchpad) {
     let cycles = []
 
-    // launchpad.on('input', add)
+    launchpad.on('input', add)
     
-    let position = {x: 0, y: 0}
-    setInterval(() => {
-        while (true) {
-            let rndX = Math.random()
-            let rndY = Math.random()
-            let newPosition = {
-                x: rndX < 0.4 ? position.x - 1 : rndX < 0.8 ? position.x + 1 : position.x,
-                y: rndY < 0.4 ? position.y - 1 : rndY < 0.8 ? position.y + 1 : position.y
-            }
-            
-            if (newPosition.x >= 0 && newPosition.x <= 7 && newPosition.y >= 0 && newPosition.y <= 7) {
-                position = newPosition
-                break
-            }
-        }
-
-        add(position.x, position.y)
-    }, 100)
+    // let position = {x: 0, y: 0}
+    // setInterval(() => {
+    //     while (true) {
+    //         let rndX = Math.random()
+    //         let rndY = Math.random()
+    //         let newPosition = {
+    //             x: rndX < 0.4 ? position.x - 1 : rndX < 0.8 ? position.x + 1 : position.x,
+    //             y: rndY < 0.4 ? position.y - 1 : rndY < 0.8 ? position.y + 1 : position.y
+    //         }
+    //
+    //         if (newPosition.x >= 0 && newPosition.x <= 7 && newPosition.y >= 0 && newPosition.y <= 7) {
+    //             position = newPosition
+    //             break
+    //         }
+    //     }
+    //
+    //     add(position.x, position.y)
+    // }, 100)
 
     function add(x, y) {
         let gens = ff({x: x, y: y})
