@@ -1,16 +1,29 @@
 {
-  "name": "launchpad",
+  "name": "lunchpad",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "interface for the novation launchpad mini, for node and the browser",
+  "main": "dist/node/indexNode.js",
+  "browser": "dist/browser/indexBrowser.js",
   "scripts": {
-    "prepublishOnly": "rm -rf dist && npm test && npm run compileNode && npm run compileBrowser",
-    "test": "echo \"not yet :)\"",
+    "prepublishOnly": "rm -rf dist && npm run compileNode && npm run compileBrowser",
     "compileNode": "babel -d dist/node src",
     "compileBrowser": "webpack"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Manuel Ernst <seriousstuff@gmx.de>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:seriousManual/lunchpad.git"
+  },
+  "keywords": [
+    "novation",
+    "launchpad",
+    "launchpad mini",
+    "midi",
+    "webmidiapi",
+    "browser",
+    "node"
+  ],
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
