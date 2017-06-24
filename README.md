@@ -1,8 +1,10 @@
 # LUNCHPAD
 
-Lunchpad is a interface for the Novation Launchpad Mini.
+Lunchpad is a interface for the [Novation Launchpad Mini](https://www.thomann.de/de/novation_launchpad_mini_mk2.htm).
 
-[Launchpad Mini](https://www.thomann.de/thumb/thumb220x170/pics/prod/366212.jpg)
+<p align="center">
+  <img src="https://www.thomann.de/thumb/thumb220x170/pics/prod/366212.jpg" width="250" />
+</p>
 
 Lunchpad runs in the browser and on node.js.
 
