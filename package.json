@@ -32,11 +32,6 @@
     "babel-preset-react": "^6.24.1",
     "webpack": "^2.6.1"
   },
-  "optionalDependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "midi": "^0.9.5"
-  },
   "babel": {
     "presets": [
       "es2015"
