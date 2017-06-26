@@ -3,26 +3,16 @@
 const path = require('path')
 
 module.exports = {
-    devtool: 'cheap-module-source-map',
-    entry: [
-        './src/indexBrowser.js'
-    ],
+    entry: './src/indexBrowser.js',
     output: {
         path: path.join(__dirname, 'dist/browser'),
-        filename: 'indexBrowser.js'
+        filename: 'indexBrowser.js',
+        library: 'lunchpad'
     },
-    externals: {
-        react: {
-            commonjs: "react",
-            amd: "react",
-            root: "react"
-        },
-        "react-dom": {
-            commonjs: "react-dom",
-            amd: "react-dom",
-            root: "react-dom"
-        }
-    },
+    externals: [
+        'react',
+        'react-dom'
+    ],
     module: {
         loaders: [
             {
