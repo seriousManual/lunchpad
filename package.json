@@ -6,7 +6,7 @@
   "browser": "dist/browser/indexBrowser.js",
   "scripts": {
     "prepublishOnly": "rm -rf dist && npm run compileNode && npm run compileBrowser",
-    "compileNode": "babel -d dist/node src",
+    "compileNode": "babel -d dist/node --ignore=/lib/shim/*.*,indexBrowser.js --presets=es2015 src",
     "compileBrowser": "webpack"
   },
   "author": "Manuel Ernst <seriousstuff@gmx.de>",
@@ -31,14 +31,6 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "webpack": "^2.6.1"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
-    ],
-    "ignore": [
-      "/lib/shim/*.*"
-    ]
   },
   "dependencies": {
     "debug": "^2.6.8"
