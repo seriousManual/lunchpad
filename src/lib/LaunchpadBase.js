@@ -16,6 +16,18 @@ export default class LaunchpadBase extends EventEmitter {
 
     clearSquares() {
         this.updateBoard(generateBlankSquare(Color.BLACK))
+
+        return this
+    }
+
+    clearAll() {
+        this.updateBoard(
+            generateBlankSquare(Color.BLACK),
+            [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK],
+            [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
+        )
+
+        return this
     }
 
     getSquare(x, y) {
