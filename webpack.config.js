@@ -9,10 +9,14 @@ module.exports = {
         filename: 'indexBrowser.js',
         library: 'lunchpad'
     },
-    externals: [
-        'react',
-        'react-dom'
-    ],
+    externals: {
+        react: {
+            commonjs: 'react'
+        },
+        'react-dom': {
+            commonjs: 'react-dom'
+        }
+    },
     module: {
         loaders: [
             {
