@@ -1,8 +1,9 @@
-import Color from '../lib/Color'
-import ff from './floodfillImplementation.js'
-import generateBlankSquare from '../lib/generateBlankSquare'
+const Color = require('../../src/lib/Color');
 
-export default function floodfill(launchpad) {
+const ff = require('./floodfillImplementation');
+const generateBlankSquare = require('../../src/lib/generateBlankSquare');
+
+function floodfill(launchpad) {
     let cycles = []
 
     launchpad.on('input', add)
@@ -54,3 +55,5 @@ export default function floodfill(launchpad) {
 
     animationCycle()
 }
+
+module.exports = floodfill;

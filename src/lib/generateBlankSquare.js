@@ -1,4 +1,4 @@
-export default function generateBlankSquares (color = null) {
+function generateBlankSquares (color = null) {
     let squares = []
     for (let x = 0; x < 8; x++) {
         let row = []
@@ -10,3 +10,5 @@ export default function generateBlankSquares (color = null) {
 
     return squares
 }
+
+module.exports = generateBlankSquares;

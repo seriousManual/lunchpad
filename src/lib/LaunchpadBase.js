@@ -1,10 +1,10 @@
-import debug from 'debug'
-import {EventEmitter} from 'events'
+const debug = require('debug');
+const {EventEmitter} = require('events');
 
-import Color from './Color'
-import generateBlankSquare from './generateBlankSquare'
+const Color = require('./Color');
+const generateBlankSquare = require('./generateBlankSquare');
 
-export default class LaunchpadBase extends EventEmitter {
+class LaunchpadBase extends EventEmitter {
     constructor() {
         super()
 
@@ -131,3 +131,5 @@ export default class LaunchpadBase extends EventEmitter {
         return this
     }
 }
+
+module.exports = LaunchpadBase;

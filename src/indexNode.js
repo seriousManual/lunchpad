@@ -1,4 +1,4 @@
-import initialize from './lib/initializeNode'
-import Color from './lib/Color'
+const initialize = require('./lib/initializeNode');
+const Color = require('./lib/Color');
 
-export {initialize, Color}
+module.exports = {initialize, Color};

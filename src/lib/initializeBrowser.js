@@ -1,6 +1,6 @@
-import LaunchpadBrowser from './LaunchpadBrowser'
+const LaunchpadBrowser = require('./LaunchpadBrowser');
 
-export default function initializeBrowser() {
+function initializeBrowser() {
     return new Promise((resolve, reject) => {
         if (!navigator.requestMIDIAccess) {
             return reject(new Error('browser does not support requestMIDIAccess'))
@@ -43,3 +43,5 @@ function _getLaunchpadBrowser(midiAccess) {
         output: lpOutput
     }
 }
+
+module.exports = initializeBrowser;

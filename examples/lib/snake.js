@@ -1,7 +1,7 @@
-import debug from 'debug'
+const debug = require('debug');
 
-import Color from '../lib/Color'
-import generateBlankSquare from '../lib/generateBlankSquare'
+const Color = require('../../src/lib/Color');
+const generateBlankSquare = require('../../src/lib/generateBlankSquare');
 
 const DIR_UP = 'up'
 const DIR_DOWN = 'down'
@@ -12,7 +12,7 @@ const STATE_START = 'start'
 const STATE_RUNNING = 'running'
 const STATE_ERROR = 'error'
 
-export default function snake(launchpad) {
+function snake(launchpad) {
     let state = STATE_START, currentDirection, snake, apple, delay
     let _debug = debug('lp:snake')
 
@@ -152,3 +152,5 @@ function _checkSnakeForCollision(snake, coord) {
 
     return false
 }
+
+module.exports = snake;

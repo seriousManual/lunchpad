@@ -1,6 +1,4 @@
-import initialize from './lib/initializeBrowser'
-import initializeShim from './lib/shim/initialize'
-import Bridge from './lib/shim/Bridge'
-import Color from './lib/Color'
+const initialize = require('./lib/initializeBrowser');
+const Color = require('./lib/Color');
 
-export {initialize, initializeShim, Bridge, Color}
+module.exports = {initialize, Color};

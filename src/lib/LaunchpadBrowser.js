@@ -1,8 +1,8 @@
-import debug from 'debug'
+const debug = require('debug');
 
-import LaunchpadMidi from './LaunchpadMidi'
+const LaunchpadMidi = require('./LaunchpadMidi');
 
-export default class LaunchpadBrowser extends LaunchpadMidi {
+class LaunchpadBrowser extends LaunchpadMidi {
     constructor(input, output) {
         super(input, output)
 
@@ -13,8 +13,10 @@ export default class LaunchpadBrowser extends LaunchpadMidi {
         }
     }
 
-    _send (order, note, velocity) {
+    _send(order, note, velocity) {
         this._debug('sending', [order, note, velocity])
         this._output.send([order, note, velocity])
     }
 }
+
+module.exports = LaunchpadBrowser;

@@ -1,6 +1,6 @@
-import LaunchpadNode from './LaunchpadNode'
+const LaunchpadNode = require('./LaunchpadNode');
 
-export default function initializeNode() {
+function initializeNode() {
     return new Promise(resolve=> {
         let {input, output} = _getLaunchpadNode()
         resolve(new LaunchpadNode(input, output))
@@ -40,3 +40,5 @@ function _getLaunchpadNode() {
         output: lpOutput
     }
 }
+
+module.exports = initializeNode;

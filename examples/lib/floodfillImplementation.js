@@ -1,4 +1,4 @@
-export default function floodfill(baseCoord) {
+function floodfill(baseCoord) {
     let seen = {[baseCoord.x + '_' + baseCoord.y]: true}
     let generations = [[baseCoord]]
     let previousGeneration = generations[0]
@@ -48,3 +48,5 @@ function getNeigbours(coord) {
 function validate(coord) {
     return !(coord.x < 0 || coord.x > 7 || coord.y < 0 || coord.y > 7)
 }
+
+module.exports = floodfill;

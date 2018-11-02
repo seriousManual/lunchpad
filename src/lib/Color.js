@@ -1,6 +1,6 @@
 const store = {}
 
-export default class Color {
+class Color {
     static getRandomColor() {
         return Color.getColor(parseInt(Math.random() * 4, 10), parseInt(Math.random() * 4, 10))
     }
@@ -70,3 +70,5 @@ Color.BLACK = Color.getColor(0, 0)
 Color.RED = Color.getColor(3, 0)
 Color.GREEN = Color.getColor(0, 3)
 Color.AMBER = Color.getColor(3, 3)
+
+module.exports = Color;

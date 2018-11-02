@@ -1,8 +1,8 @@
-import debug from 'debug'
+const debug = require('debug');
 
-import LaunchpadBase from './LaunchpadBase'
+const LaunchpadBase = require('./LaunchpadBase');
 
-export default class LaunchpadMidi extends LaunchpadBase {
+class LaunchpadMidi extends LaunchpadBase {
     constructor(input, output) {
         super()
 
@@ -66,3 +66,5 @@ export default class LaunchpadMidi extends LaunchpadBase {
 
     }
 }
+
+module.exports = LaunchpadMidi;
