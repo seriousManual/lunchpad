@@ -1,4 +1,4 @@
-const Color = require('../../dist/node/indexServer').Color
+const Color = require('../../src/lib/Color')
 
 function drawing(launchpad) {
     let currentColor = Color.RED
