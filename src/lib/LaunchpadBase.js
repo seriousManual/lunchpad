@@ -96,7 +96,7 @@ class LaunchpadBase extends EventEmitter {
                     if (!color) continue
 
                     if (this._squares[x][y].getCode() !== color.getCode()) {
-                        this.setSquare(x, y, color, false)
+                        this.setSquare(x, y, color, true)
                     }
                 }
             }
@@ -109,7 +109,7 @@ class LaunchpadBase extends EventEmitter {
                 if (!color) continue
 
                 if (this._functionX[x].getCode() !== color.getCode()) {
-                    this.setFunctionX(x, color, false)
+                    this.setFunctionX(x, color, true)
                 }
             }
         }
