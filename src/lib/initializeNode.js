@@ -22,8 +22,10 @@ function _getLaunchpadNode(launchpadNumber) {
         if (input.getPortName(i).indexOf('Launchpad Mini') >= 0) {
             inputsFound++
 
-            if(inputsFound < launchpadNumber)
-                continue;
+            if (inputsFound < launchpadNumber) {
+                continue
+            }
+                
 
             input.openPort(i)
             lpInput = input
@@ -35,8 +37,9 @@ function _getLaunchpadNode(launchpadNumber) {
         if (output.getPortName(i).indexOf('Launchpad Mini') >= 0) {
             outputsFound++
 
-            if(outputsFound < launchpadNumber)
-                continue;
+            if (outputsFound < launchpadNumber) {
+                continue
+            }
 
             output.openPort(i)
             lpOutput = output
