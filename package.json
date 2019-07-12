@@ -20,7 +20,7 @@
     "node"
   ],
   "dependencies": {
-    "debug": "^2.6.8",
+    "debug": "^4.1.1",
     "midi": "^0.9.5"
   }
 }
