@@ -1,6 +1,6 @@
 {
   "name": "lunchpad",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "interface for the novation launchpad mini, for node and the browser",
   "main": "src/lib/indexNode.js",
   "browser": "src/lib/indexBrowser.js",
