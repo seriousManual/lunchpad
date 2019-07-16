@@ -1,14 +1,23 @@
 const LaunchpadNode = require('./LaunchpadNode');
 
 function initializeNode(launchpadNumber = 1) {
-    return new Promise(resolve=> {
+    return new Promise((resolve, reject)=> {
         let {input, output} = _getLaunchpadNode(launchpadNumber)
-        resolve(new LaunchpadNode(input, output))
+
+        try {
+            const launchpad = new LaunchpadNode(input, output)
+            launchpad.clearAll();
+
+            resolve(launchpad)
+        } catch(error) {
+            reject(error)
+        }
     })
 }
 
 function _getLaunchpadNode(launchpadNumber) {
     const midi = require('midi')
+
     const input = new midi.input()
     const output = new midi.output()
 

@@ -7,7 +7,6 @@ class LaunchpadNode extends LaunchpadMidi {
         super(input, output)
 
         this._debug = debug('lp:launchpadMidi:Node')
-
         this._input.on('message', (deltaTime, message) => this._handleMidiMessage(message))
     }
 

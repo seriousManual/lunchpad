@@ -24,7 +24,8 @@ class LaunchpadBase extends EventEmitter {
         this.updateBoard(
             generateBlankSquare(Color.BLACK),
             [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK],
-            [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
+            [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK],
+            true
         )
 
         return this
@@ -34,13 +35,9 @@ class LaunchpadBase extends EventEmitter {
         return this._squares[x][y]
     }
 
-    setSquare (x, y, color, shouldFlush = true) {
+    setSquare (x, y, color) {
         this._squares[x][y] = color
         this._setSquare(x, y, color)
-
-        if (shouldFlush) {
-            this._flush()
-        }
 
         return this
     }
@@ -49,13 +46,9 @@ class LaunchpadBase extends EventEmitter {
         return this._functionX[x]
     }
 
-    setFunctionX(x, color, shouldFlush = true) {
+    setFunctionX(x, color) {
         this._functionX[x] = color
         this._setFunctionX(x, color)
-
-        if (shouldFlush) {
-            this._flush()
-        }
 
         return this
     }
@@ -64,13 +57,9 @@ class LaunchpadBase extends EventEmitter {
         return this._functionX[y]
     }
 
-    setFunctionY(y, color, shouldFlush = true) {
+    setFunctionY(y, color) {
         this._functionY[y] = color
         this._setFunctionY(y, color)
-
-        if (shouldFlush) {
-            this._flush()
-        }
 
         return this
     }
@@ -87,15 +76,17 @@ class LaunchpadBase extends EventEmitter {
         this.emit('functionY', y)
     }
 
-    updateBoard (squares, functionX = null, functionY = null) {
+    updateBoard (squares, functionX = null, functionY = null, force = false) {
         if (squares) {
             for (let x = 0; x < squares.length; x++) {
                 for (let y = 0; y < squares[x].length; y++) {
                     let color = squares[x][y]
 
-                    if (!color) continue
+                    if (!color) {
+                        continue
+                    }
 
-                    if (this._squares[x][y].getCode() !== color.getCode()) {
+                    if (this._squares[x][y].getCode() !== color.getCode() || force) {
                         this.setSquare(x, y, color, false)
                     }
                 }
@@ -106,9 +97,11 @@ class LaunchpadBase extends EventEmitter {
             for (let x = 0; x < functionX.length; x++) {
                 let color = functionX[x]
 
-                if (!color) continue
+                if (!color) {
+                    continue
+                }
 
-                if (this._functionX[x].getCode() !== color.getCode()) {
+                if (this._functionX[x].getCode() !== color.getCode() || force) {
                     this.setFunctionX(x, color, false)
                 }
             }
@@ -118,15 +111,15 @@ class LaunchpadBase extends EventEmitter {
             for (let y = 0; y < functionY.length; y++) {
                 let color = functionY[y]
 
-                if (!color) continue
+                if (!color) {
+                    continue
+                }
 
-                if (this._functionY[y].getCode() !== color.getCode()) {
+                if (this._functionY[y].getCode() !== color.getCode() || force) {
                     this.setFunctionY(y, color, false)
                 }
             }
         }
-
-        this._flush()
 
         return this
     }

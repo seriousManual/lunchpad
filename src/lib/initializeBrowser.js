@@ -6,14 +6,17 @@ function initializeBrowser() {
             return reject(new Error('browser does not support requestMIDIAccess'))
         }
 
-        navigator.requestMIDIAccess().then(function onMIDISuccess (midiAccess) {
+        navigator.requestMIDIAccess().then(midiAccess => {
             try {
-                let {input, output} = _getLaunchpadBrowser(midiAccess)
+                const {input, output} = _getLaunchpadBrowser(midiAccess)
+                const launchpad = new LaunchpadBrowser(input, output)
+
+                launchpad.clearAll();
+
+                resolve(launchpad);
             } catch (error) {
                 return reject(error)
             }
-
-            resolve(new LaunchpadBrowser(input, output))
         }, reject)
     })
 }
