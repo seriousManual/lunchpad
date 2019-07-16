@@ -2,8 +2,8 @@
   "name": "lunchpad",
   "version": "2.1.0",
   "description": "interface for the novation launchpad mini, for node and the browser",
-  "main": "src/lib/indexNode.js",
-  "browser": "src/lib/indexBrowser.js",
+  "main": "src/indexNode.js",
+  "browser": "src/indexBrowser.js",
   "author": "Manuel Ernst <seriousstuff@gmx.de>",
   "license": "MIT",
   "repository": {
