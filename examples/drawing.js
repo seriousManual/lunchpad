@@ -1,4 +1,11 @@
-const Color = require('../../src/lib/Color')
+const Color = require('../src/lib/Color')
+const initialize = require('../src/indexNode').initialize
+
+initialize(1)
+    .then(launchpad => drawing(launchpad))
+    .catch(error => {
+        throw error
+    })
 
 function drawing(launchpad) {
     let currentColor = Color.RED
@@ -42,6 +49,3 @@ function drawing(launchpad) {
         .setFunctionX(1, Color.GREEN)
         .setFunctionX(2, Color.AMBER)
         .setFunctionX(7, currentColor)
-}
-
-module.exports = drawing
