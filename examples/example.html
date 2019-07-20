@@ -5,7 +5,9 @@
         <script src="../dist/lunchpad.min.js"></script>
 
         <script>
-            console.log(window)
+            lunchpad.initialize().then(lp => {
+                lp.setSquare(0, 0, lunchpad.Color.RED);
+            });
         </script>
     </head>
     <body>
