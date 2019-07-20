@@ -5,9 +5,10 @@
         <script src="https://unpkg.com/lunchpad"></script>
 
         <script>
-            lunchpad.initialize().then(lp => {
-                lp.setSquare(0, 0, lunchpad.Color.RED);
-            });
+            const { initialize, Color } = lunchpad;
+            const drawing = lunchpad.examples.drawing;
+
+            initialize().then(drawing);
         </script>
     </head>
     <body>
