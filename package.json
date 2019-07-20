@@ -3,12 +3,15 @@
   "version": "2.1.1",
   "description": "interface for the novation launchpad mini, for node and the browser",
   "main": "src/indexNode.js",
-  "browser": "src/indexBrowser.js",
+  "browser": "browser/lunchpad.min.js",
   "author": "Manuel Ernst <seriousstuff@gmx.de>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:seriousManual/lunchpad.git"
+  },
+  "scripts": {
+    "prepublish": "webpack -c webpack.config.js"
   },
   "keywords": [
     "novation",
@@ -22,5 +25,9 @@
   "dependencies": {
     "debug": "^4.1.1",
     "midi": "^0.9.5"
+  },
+  "devDependencies": {
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6"
   }
 }
