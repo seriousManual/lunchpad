@@ -1,4 +1,4 @@
-const LaunchpadBrowser = require('./LaunchpadBrowser')
+const LaunchpadBrowser = require('./impl/LaunchpadBrowser')
 
 function initializeBrowser(launchpadNumber = 1) {
     return new Promise((resolve, reject) => {

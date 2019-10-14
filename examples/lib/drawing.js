@@ -1,3 +1,5 @@
+const Color = require('../../src/lib/Color')
+
 function drawing(launchpad) {
     let currentColor = Color.RED
 

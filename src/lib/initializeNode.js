@@ -1,4 +1,4 @@
-const LaunchpadNode = require('./LaunchpadNode')
+const LaunchpadNode = require('./impl/LaunchpadNode')
 
 function initializeNode(launchpadNumber = 1) {
     return new Promise((resolve, reject)=> {

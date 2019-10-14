@@ -24,8 +24,7 @@ class LaunchpadBase extends EventEmitter {
         this.updateBoard(
             generateBlankSquare(Color.BLACK),
             [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK],
-            [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK],
-            true
+            [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
         )
 
         return this
@@ -64,6 +63,10 @@ class LaunchpadBase extends EventEmitter {
         return this
     }
 
+    flush() {
+        this._flush();
+    }
+
     _selectSquare(x, y) {
         this.emit('input', x, y);
     }
@@ -76,19 +79,16 @@ class LaunchpadBase extends EventEmitter {
         this.emit('functionY', y)
     }
 
-    updateBoard (squares, functionX = null, functionY = null, force = false) {
+    updateBoard (squares, functionX = null, functionY = null) {
         if (squares) {
             for (let x = 0; x < squares.length; x++) {
                 for (let y = 0; y < squares[x].length; y++) {
                     let color = squares[x][y]
-
                     if (!color) {
                         continue
                     }
 
-                    if (this._squares[x][y].getCode() !== color.getCode() || force) {
-                        this.setSquare(x, y, color, false)
-                    }
+                    this.setSquare(x, y, color)
                 }
             }
         }
@@ -96,28 +96,22 @@ class LaunchpadBase extends EventEmitter {
         if (functionX) {
             for (let x = 0; x < functionX.length; x++) {
                 let color = functionX[x]
-
                 if (!color) {
                     continue
                 }
 
-                if (this._functionX[x].getCode() !== color.getCode() || force) {
-                    this.setFunctionX(x, color, false)
-                }
+                this.setFunctionX(x, color)
             }
         }
 
         if (functionY) {
             for (let y = 0; y < functionY.length; y++) {
                 let color = functionY[y]
-
                 if (!color) {
                     continue
                 }
 
-                if (this._functionY[y].getCode() !== color.getCode() || force) {
-                    this.setFunctionY(y, color, false)
-                }
+                this.setFunctionY(y, color)
             }
         }
 

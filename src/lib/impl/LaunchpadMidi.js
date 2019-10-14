@@ -1,6 +1,6 @@
-const debug = require('debug');
+const debug = require('debug')
 
-const LaunchpadBase = require('./LaunchpadBase');
+const LaunchpadBase = require('../LaunchpadBase')
 
 class LaunchpadMidi extends LaunchpadBase {
     constructor(input, output) {
@@ -25,8 +25,12 @@ class LaunchpadMidi extends LaunchpadBase {
         this._send(144, this._getFunctionYCoordinate(y), color.getCode())
     }
 
-    _send (order, note, velocity) {
+    _send(order, note, velocity) {
         throw Error('missing _send implementation')
+    }
+
+    _flush() {
+        //noop for now
     }
 
     _handleMidiMessage (message) {
@@ -51,7 +55,7 @@ class LaunchpadMidi extends LaunchpadBase {
     }
 
     _getFunctionXCoordinate (x) {
-        return x + 104;
+        return x + 104
     }
 
     _getFunctionYCoordinate (y) {
@@ -63,4 +67,4 @@ class LaunchpadMidi extends LaunchpadBase {
     }
 }
 
-module.exports = LaunchpadMidi;
+module.exports = LaunchpadMidi
