@@ -1,6 +1,6 @@
-const LaunchpadBrowser = require('./LaunchpadBrowser');
+const LaunchpadBrowser = require('./LaunchpadBrowser')
 
-function initializeBrowser() {
+function initializeBrowser(launchpadNumber = 1) {
     return new Promise((resolve, reject) => {
         if (!navigator.requestMIDIAccess) {
             return reject(new Error('browser does not support requestMIDIAccess'))
@@ -8,12 +8,12 @@ function initializeBrowser() {
 
         navigator.requestMIDIAccess().then(midiAccess => {
             try {
-                const {input, output} = _getLaunchpadBrowser(midiAccess)
+                const {input, output} = _getLaunchpadBrowser(midiAccess, launchpadNumber)
                 const launchpad = new LaunchpadBrowser(input, output)
 
-                launchpad.clearAll();
+                launchpad.clearAll()
 
-                resolve(launchpad);
+                resolve(launchpad)
             } catch (error) {
                 return reject(error)
             }
@@ -21,24 +21,45 @@ function initializeBrowser() {
     })
 }
 
-function _getLaunchpadBrowser(midiAccess) {
+function _getLaunchpadBrowser(midiAccess, launchpadNumber) {
     let lpInput = null
     let lpOutput = null
 
+    let inputsFound = 0
+    let outputsFound = 0
+
     for (let input of midiAccess.inputs.values()) {
         if (input.name === 'Launchpad Mini') {
+            inputsFound++
+
+            if (inputsFound < launchpadNumber) {
+                continue
+            }
+
             lpInput = input
+            break
         }
     }
 
     for (let output of midiAccess.outputs.values()) {
         if (output.name === 'Launchpad Mini') {
+            outputsFound++
+
+            if (outputsFound < launchpadNumber) {
+                continue
+            }
+
             lpOutput = output
+            break
         }
     }
 
-    if (!lpInput || !lpOutput) {
+    if (inputsFound == 0 || outputsFound == 0){
         throw new Error('no launchpad found')
+    }
+
+    if (!lpInput || !lpOutput) {
+        throw new Error(`launchpad #${launchpadNumber} not found`)
     }
 
     return {
@@ -47,4 +68,4 @@ function _getLaunchpadBrowser(midiAccess) {
     }
 }
 
-module.exports = initializeBrowser;
+module.exports = initializeBrowser

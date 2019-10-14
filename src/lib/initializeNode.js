@@ -1,4 +1,4 @@
-const LaunchpadNode = require('./LaunchpadNode');
+const LaunchpadNode = require('./LaunchpadNode')
 
 function initializeNode(launchpadNumber = 1) {
     return new Promise((resolve, reject)=> {
@@ -6,7 +6,7 @@ function initializeNode(launchpadNumber = 1) {
 
         try {
             const launchpad = new LaunchpadNode(input, output)
-            launchpad.clearAll();
+            launchpad.clearAll()
 
             resolve(launchpad)
         } catch(error) {
@@ -56,12 +56,12 @@ function _getLaunchpadNode(launchpadNumber) {
         }
     }
 
-    if(inputsFound == 0 || outputsFound == 0){
+    if (inputsFound == 0 || outputsFound == 0){
         throw new Error('no launchpad found')
     }
 
     if (!lpInput || !lpOutput) {
-        throw new Error('no launchpad for that device number found')
+        throw new Error(`launchpad #${launchpadNumber} not found`)
     }
 
     return {
@@ -70,4 +70,4 @@ function _getLaunchpadNode(launchpadNumber) {
     }
 }
 
-module.exports = initializeNode;
+module.exports = initializeNode
