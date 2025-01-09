@@ -1,31 +1,22 @@
-const debug = require('debug')
+import Color from '../../lib/Color'
+import LaunchpadBase from '../LaunchpadBase'
 
-const LaunchpadBase = require('../LaunchpadBase')
+export type MidiData = [number, number, number]
 
 class LaunchpadMidi extends LaunchpadBase {
-    constructor(input, output) {
-        super()
-
-        this._input = input
-        this._output = output
-        this._debug = debug('lp:launchpadMidi')
-
-        this._input.onmidimessage = event => this._handleMidiMessage(event)
-    }
-
-    _setSquare(x, y, color) {
+    _setSquare(x: number, y: number, color: Color) {
         this._send(144, this._getSquareCoordinate(x, y), color.getCode())
     }
 
-    _setFunctionX(x, color) {
+    _setFunctionX(x: number, color: Color) {
         this._send(176, this._getFunctionXCoordinate(x), color.getCode())
     }
 
-    _setFunctionY(y, color) {
+    _setFunctionY(y: number, color: Color) {
         this._send(144, this._getFunctionYCoordinate(y), color.getCode())
     }
 
-    _send(order, note, velocity) {
+    _send(order: number, note: number, velocity: number) {
         throw Error('missing _send implementation')
     }
 
@@ -33,9 +24,7 @@ class LaunchpadMidi extends LaunchpadBase {
         //noop for now
     }
 
-    _handleMidiMessage (message) {
-        this._debug('handling message', message)
-
+    _handleMidiMessage (message: MidiData) {
         if (message[2] < 127) {
             return
         }
@@ -43,8 +32,8 @@ class LaunchpadMidi extends LaunchpadBase {
         if (message[0] === 176) {
             this._selectFunctionX(message[1] - 104)
         } else {
-            let x = message[1] % 16
-            let y = parseInt(message[1] / 16) * -1 + 7
+            const x = message[1] % 16
+            const y = Math.floor(message[1] / 16) * -1 + 7
 
             if (x === 8) {
                 this._selectFunctionY(y)
@@ -54,17 +43,17 @@ class LaunchpadMidi extends LaunchpadBase {
         }
     }
 
-    _getFunctionXCoordinate (x) {
+    _getFunctionXCoordinate (x: number) {
         return x + 104
     }
 
-    _getFunctionYCoordinate (y) {
+    _getFunctionYCoordinate (y: number) {
         return this._getSquareCoordinate(8, y)
     }
 
-    _getSquareCoordinate (x, y) {
+    _getSquareCoordinate (x: number, y: number) {
         return (((y - 7) * -1) * 16) + x
     }
 }
 
-module.exports = LaunchpadMidi
+export default LaunchpadMidi

@@ -1,11 +1,9 @@
-const debug = require('debug')
-
-const Color = require('../Color')
-const LaunchpadBase = require('../LaunchpadBase')
-
-const mockDebug = debug('lp:mock')
+import Color from '../Color'
+import LaunchpadBase, { Board } from '../LaunchpadBase'
 
 class Mock extends LaunchpadBase {
+    private pad: Board
+
     constructor() {
         super()
 
@@ -22,18 +20,15 @@ class Mock extends LaunchpadBase {
         ]
     }
 
-    _setSquare(x, y, color) {
-        mockDebug('setSquare', x, y, color);
+    _setSquare(x: number, y: number, color: Color) {
         this.pad[-1 * y + 8][x] = color;
     }
 
-    _setFunctionX(x, color) {
-        mockDebug('setFunctionX', x, color);
+    _setFunctionX(x: number, color: Color) {
         this.pad[0][x] = color;
     }
 
-    _setFunctionY(y, color) {
-        mockDebug('setFunctionY', y, color);
+    _setFunctionY(y: number, color: Color) {
         this.pad[-1 * y + 8][8] = color;
     }
 
@@ -42,4 +37,4 @@ class Mock extends LaunchpadBase {
     }
 }
 
-module.exports = Mock
+export default Mock

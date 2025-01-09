@@ -1,17 +1,23 @@
-const debug = require('debug');
-const {EventEmitter} = require('events');
+import EventEmitter from 'eventemitter3'
 
-const Color = require('./Color');
-const generateBlankSquare = require('./generateBlankSquare');
+import Color from './Color'
+import generateBlankSquare from './generateBlankSquare'
 
-class LaunchpadBase extends EventEmitter {
+export type Board = Color[][]
+export type Functions = [Color, Color, Color, Color, Color, Color, Color, Color]
+
+abstract class LaunchpadBase extends EventEmitter {
+    private squares = generateBlankSquare(Color.BLACK)
+    private functionX: Functions = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
+    private functionY: Functions = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
+
+    abstract _setSquare(x: number, y: number, color: Color): void
+    abstract _setFunctionX(x: number, color: Color): void
+    abstract _setFunctionY(x: number, color: Color): void
+    abstract _flush(): void
+
     constructor() {
         super()
-
-        this._debug = debug('lp:launchpad')
-        this._squares = generateBlankSquare(Color.BLACK)
-        this._functionX = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
-        this._functionY = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK]
     }
 
     clearSquares() {
@@ -30,34 +36,34 @@ class LaunchpadBase extends EventEmitter {
         return this
     }
 
-    getSquare(x, y) {
-        return this._squares[x][y]
+    getSquare(x: number, y: number) {
+        return this.squares[x][y]
     }
 
-    setSquare (x, y, color) {
-        this._squares[x][y] = color
+    setSquare (x: number, y: number, color: Color) {
+        this.squares[x][y] = color
         this._setSquare(x, y, color)
 
         return this
     }
 
-    getFunctionX(x) {
-        return this._functionX[x]
+    getFunctionX(x: number) {
+        return this.functionX[x]
     }
 
-    setFunctionX(x, color) {
-        this._functionX[x] = color
+    setFunctionX(x: number, color: Color) {
+        this.functionX[x] = color
         this._setFunctionX(x, color)
 
         return this
     }
 
-    getFunctionY(y) {
-        return this._functionX[y]
+    getFunctionY(y: number) {
+        return this.functionX[y]
     }
 
-    setFunctionY(y, color) {
-        this._functionY[y] = color
+    setFunctionY(y: number, color: Color) {
+        this.functionY[y] = color
         this._setFunctionY(y, color)
 
         return this
@@ -67,19 +73,19 @@ class LaunchpadBase extends EventEmitter {
         this._flush();
     }
 
-    _selectSquare(x, y) {
+    _selectSquare(x: number, y: number) {
         this.emit('input', x, y);
     }
 
-    _selectFunctionX(x) {
+    _selectFunctionX(x: number) {
         this.emit('functionX', x)
     }
 
-    _selectFunctionY(y) {
+    _selectFunctionY(y: number) {
         this.emit('functionY', y)
     }
 
-    updateBoard (squares, functionX = null, functionY = null) {
+    updateBoard (squares?: Board, functionX?: Functions, functionY?: Functions) {
         if (squares) {
             for (let x = 0; x < squares.length; x++) {
                 for (let y = 0; y < squares[x].length; y++) {
@@ -119,4 +125,4 @@ class LaunchpadBase extends EventEmitter {
     }
 }
 
-module.exports = LaunchpadBase;
+export default LaunchpadBase

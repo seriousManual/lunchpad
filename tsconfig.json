@@ -1,0 +1,42 @@
+{
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "include": [
+      "src/**/*"
+  ],
+  "exclude": [
+      "node_modules"
+  ],
+  "typeAcquisition": {
+      "enable": false
+  },
+  "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+          "*": [
+              "src/*",
+              "*"
+          ]
+      },
+      "outDir": "./dist/",
+      "diagnostics": false,
+      "sourceMap": true,
+      "alwaysStrict": true,
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "noImplicitAny": true,
+      "noImplicitReturns": true,
+      "noImplicitThis": true,
+      "noUnusedLocals": true,
+      "pretty": true,
+      "target": "es2018",
+      "module": "CommonJS",
+      "removeComments": false,
+      "preserveConstEnums": true,
+      "declaration": true,
+      "experimentalDecorators": false,
+      "emitDecoratorMetadata": false,
+      "allowSyntheticDefaultImports": true,
+      "traceResolution": false,
+  }
+}

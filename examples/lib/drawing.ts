@@ -1,4 +1,4 @@
-const Color = require('../../src/lib/Color')
+import Color from '../../src/lib/Color'
 
 function drawing(launchpad) {
     let currentColor = Color.RED
@@ -44,4 +44,4 @@ function drawing(launchpad) {
         .setFunctionX(7, currentColor)
 }
 
-module.exports = drawing
+export default drawing

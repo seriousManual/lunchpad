@@ -1,10 +1,13 @@
-const LaunchpadBase = require('../LaunchpadBase')
+import Color from '../../lib/Color'
+import LaunchpadBase from '../LaunchpadBase'
 
 class LaunchpadBridge extends LaunchpadBase {
-    constructor(lps) {
+    private launchpads: LaunchpadBase[] = []
+
+    constructor(launchpads: LaunchpadBase[]) {
         super()
 
-        this._lps = lps
+        this.launchpads = launchpads
 
         this._forEachLP(lp => {
             lp.on('input', (x, y) => this.emit('input', x, y))
@@ -16,22 +19,26 @@ class LaunchpadBridge extends LaunchpadBase {
     clearSquares() {
         super.clearSquares()
         this._forEachLP(lp => lp.clearSquares())
+
+        return this
     }
 
     clearAll() {
         super.clearAll()
         this._forEachLP(lp => lp.clearAll())
+
+        return this
     }
 
-    _setSquare(x, y, color) {
+    _setSquare(x: number, y: number, color: Color) {
         this._forEachLP(lp => lp.setSquare(x, y, color))
     }
 
-    _setFunctionX(x, color) {
+    _setFunctionX(x: number, color: Color) {
         this._forEachLP(lp => lp.setFunctionX(x, color))
     }
 
-    _setFunctionY(y, color) {
+    _setFunctionY(y: number, color: Color) {
         this._forEachLP(lp => lp.setFunctionY(y, color))
     }
 
@@ -39,17 +46,11 @@ class LaunchpadBridge extends LaunchpadBase {
         this._forEachLP(lp => lp.flush())
     }
 
-    _forEachLP(fn, but = null) {
-        for (let i = 0; i < this._lps.length; i++) {
-            const lp = this._lps[i];
-
-            if (but && but === lp) {
-                continue
-            }
-
-            fn(this._lps[i])
+    _forEachLP(fn: (launchpad: LaunchpadBase) => void) {
+        for (let i = 0; i < this.launchpads.length; i++) {
+            fn(this.launchpads[i])
         }
     }
 }
 
-module.exports = LaunchpadBridge
+export default LaunchpadBridge
