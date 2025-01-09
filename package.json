@@ -23,11 +23,11 @@
     "node"
   ],
   "dependencies": {
-    "debug": "^4.1.1",
-    "midi": "^0.9.5"
+    "debug": "^4.4.0",
+    "midi": "^2.0.0"
   },
   "devDependencies": {
-    "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6"
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
   }
 }
